@@ -1,28 +1,32 @@
 /**
  * Definition for a binary tree node.
- * struct TreeNode {
+ * public class TreeNode {
  *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
- *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
- * };
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
  */
 class Solution {
-public:
-    void findPaths(TreeNode* root,int sum,vector<int>&list,vector<vector<int>>&res){
-        if(root==NULL)return;
-        list.push_back(root->val);
-        if(root->left==NULL&&root->right==NULL&&root->val==sum)res.push_back(list);
-        findPaths(root->left,sum-root->val,list,res);
-        findPaths(root->right,sum-root->val,list,res);
-        list.pop_back();
+    public static void listMake(TreeNode root,int sum,List<Integer>list,List<List<Integer>>res){
+        if(root==null)return;
+        list.add(root.val);
+        if(root.left==null&&root.right==null&&sum-root.val==0)res.add(new ArrayList(list));
+        listMake(root.left,sum-root.val,list,res);
+        listMake(root.right,sum-root.val,list,res);
+        list.remove(list.size() - 1);
+        // list.remove(new Integer(root.val));
     }
-    vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        vector<vector<int>> res;
-        vector<int> list;
-        findPaths(root,targetSum,list,res);
+    public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        listMake(root,targetSum,list,res);
         return res;
     }
-};
+}
