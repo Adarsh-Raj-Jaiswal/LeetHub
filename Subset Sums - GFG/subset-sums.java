@@ -33,18 +33,18 @@ class GFG
 
 //User function Template for Java//User function Template for Java
 class Solution{
-    public void func(int index,int sum,ArrayList<Integer>list,ArrayList<Integer>arr,int N){
-        if(index>=N){
+    public void func(int index,int sum,ArrayList<Integer>list,ArrayList<Integer>arr){
+        if(index>=arr.size()){
             list.add(sum);
             return;
         }
-        func(index+1,sum+arr.get(index),list,arr,N);
-        func(index+1,sum,list,arr,N);
+        func(index+1,sum+arr.get(index),list,arr);
+        func(index+1,sum,list,arr);
     }
     ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
         // code here
         ArrayList<Integer> res = new ArrayList<>();
-        func(0,0,res,arr,N);
+        func(0,0,res,arr);
         return res;
         
     }
